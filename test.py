@@ -83,9 +83,6 @@ def main():
             input_data = torch.unsqueeze(input_data, 0)
             input_data = input_data.cuda()
 
-            # If you do not have enough memory, you may need to split the input_data
-            # into few parts and enhance each part and merge them finally.
-
             # enhance
             with torch.no_grad():
                 # torch.tensor([0]): QP 22 torch.tensor([1]): QP 27
