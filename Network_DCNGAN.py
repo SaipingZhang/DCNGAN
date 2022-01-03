@@ -84,9 +84,6 @@ class FA(nn.Module):
                 torch.cat([out, out_lst[i]], 1)
             )
 
-        # compute offset and mask
-        # offset: conv offset
-        # mask: confidence
         off_msk = self.offset_mask(self.out_conv(out))
         off = off_msk[:, :in_nc * 2 * n_off_msk, ...]
         msk = torch.sigmoid(
