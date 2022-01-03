@@ -78,7 +78,7 @@ After successfully generate training dataset, set
 (2)"gt_root" and "lq_root" in dataset/mfqev2.py (class VideoTestMFQEv2Dataset). "gt_root" is the path where raw video for validation is stored. "lq_root" is the path where the corresponding compressed video for validation is stored. You can choose only one video to validate during the training (just for checking if training goes normally), or you can choose to remove all things about validation to save training time. 
 
 
-It should be noted that our training dataset includes compressed sequences at all of the four QPs to give the proposed PeQuENet the ability of QP-conditional adaptation. 
+It should be noted that our training dataset includes compressed sequences at all of the four QPs to give the proposed DCNGAN the ability of QP-conditional adaptation. 
 
 ## 3. Training your own model
 
