@@ -246,14 +246,13 @@ class ResnetBlock(nn.Module):
 
 
 class DCNGAN(nn.Module):
-    def __init__(self, opts_dict):
+    def __init__(self):
         super(DCNGAN, self).__init__()
 
-        self.input_len = 2 * radius + 1
         self.in_nc = 1 # for Y channel
 
         self.ffnet = FA(
-            in_nc=self.in_nc * self.input_len,
+            in_nc=self.in_nc * (2 * radius + 1),
             out_nc=64,
             nf=48,
             nb=8,
@@ -263,7 +262,8 @@ class DCNGAN(nn.Module):
         self.QE = QE(input)
 
     def forward(self, radius, x, qp):
-        out = self.FA(x)
+        out = self.FA(x,radius)
         out = self.QE(out, qp)
 
         return out
+
