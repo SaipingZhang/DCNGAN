@@ -1,11 +1,11 @@
 import torch
 import numpy as np
 from collections import OrderedDict
-from network_PeQuENet_QPAdaptation import PeQuENet
+from Network_DCNGAN import DCNGAN
 import utils
 
 # !! please change to your path !!
-ckp_path = 'F:/PeQuENet/exp/MFQEv2_R3_enlarge300x/ckp_model.pt' # model path
+ckp_path = 'F:/exp/MFQEv2_R3_enlarge300x/ckp_model.pt' # model path
 rec_yuv_save_path = 'G:/QP37/' # enhanced video path (output path)
 cmp_yuv_path = 'F:/HM_encode_test_3231/HEVC_QP37_3231' # compressed video path (input path)
 raw_yuv_base_path = 'F:/raw' # raw video (video before compression) path
@@ -15,7 +15,7 @@ def main():
     opts_dict = {
         'radius': 1
         }
-    model = PeQuENet()
+    model = DCNGAN()
     msg = f'loading model {ckp_path}...'
     print(msg)
 
