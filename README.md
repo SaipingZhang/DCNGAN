@@ -149,6 +149,6 @@ If our paper and open source codes are helpful for your research, please cite ou
   title={DCNGAN: A Deformable Convolutional-Based GAN with QP Adaptation for Perceptual Quality Enhancement of Compressed Video},
   author={Saiping Zhang and Luis Herranz and Marta Mrak and Marc Gorriz Blanch and Shuai Wan and Fuzheng Yang},
   journal={arXiv preprint arXiv:2201.08944},
-  year={2021}
+  year={2022}
 }
 ```
