@@ -8,6 +8,7 @@ import utils
 ckp_path = 'F:/exp/MFQEv2_R3_enlarge300x/ckp_model.pt' # model path
 rec_yuv_save_path = 'G:/QP37/' # enhanced video path (output path)
 cmp_yuv_path = 'F:/HM_encode_test_3231/HEVC_QP37_3231' # compressed video path (input path)
+raw_yuv_base_path = 'F:/raw' # raw video (video before compression) path
 
 def main():
 
@@ -45,6 +46,7 @@ def main():
 
     for video in video_list:
         lq_yuv_path = cmp_yuv_path + '/' + video
+        raw_yuv_path = raw_yuv_base_path + '/' + video
 
         h = int(video.split('_', 2)[1].split('x')[1])
         w = int(video.split('_', 2)[1].split('x')[0])
@@ -52,15 +54,18 @@ def main():
 
         msg = f'loading raw and low-quality yuv...'
         print(msg)
-
-        lq_y, lq_u, lq_v = utils.import_yuv(
-            seq_path=lq_yuv_path, h=h, w=w, tot_frm=nfs, start_frm=0, only_y=False
+        raw_y, raw_u, raw_v = utils.import_yuv(
+            seq_path=raw_yuv_path, h=h, w=w, tot_frm=nfs, start_frm=0, only_y=False
+        )
+        lq_y = utils.import_yuv(
+            seq_path=lq_yuv_path, h=h, w=w, tot_frm=nfs, start_frm=0, only_y=True
         )
 
         lq_y = lq_y.astype(np.float32) / 255.
-        lq_u = lq_u.reshape(nfs, 1, -1)
-        lq_v = lq_v.reshape(nfs, 1, -1)
-        lq_uv = np.concatenate((lq_u, lq_v), axis=2)
+        raw_u = raw_u.reshape(nfs, 1, -1)
+        raw_v = raw_v.reshape(nfs, 1, -1)
+        raw_uv = np.concatenate((raw_u, raw_v), axis=2)
+        print(raw_uv.shape)
         msg = '> yuv loaded.'
         print(msg)
 
@@ -91,7 +96,7 @@ def main():
             enhanced_frame[idx, :, :] = np.squeeze(enhanced_frm_uint8)
 
         enhanced_frame = enhanced_frame.reshape(nfs, 1, -1)
-        enhanced_yuv = np.concatenate((enhanced_frame, lq_uv), axis=2)
+        enhanced_yuv = np.concatenate((enhanced_frame, raw_uv), axis=2)
         enhanced_yuv = enhanced_yuv.flatten()
 
         fp = open(rec_yuv_save_path + video, 'wb+')
